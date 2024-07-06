@@ -1,0 +1,32 @@
+{
+	"version": "1.0",
+	"target": {
+		"width": 640,
+		"height": 480
+	}
+	"layers": [
+		"layer": [
+			{
+				"plugin": ""d,
+				"parameters": {
+					"color": [255,255,255,255],
+					"corners": {
+						"topleft": [0,0],
+						"topRight": [639,0],
+						"bottomRight": [639,479] 
+						"bottomleft": [0, 479]
+					}
+				},
+				"timeline": {
+					{
+						"color": [
+							{"at": "0:0:0", "v": [255,255,255,0], "i": "l"},
+							{"at": "0:0:5", "v": [255,255,255,255]}, "i": "h"}
+						]
+
+				}
+			}
+
+	]
+	
+}
