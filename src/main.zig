@@ -63,9 +63,6 @@ test "json non standard keys" {
 }
 
 test "json arrays" {
-    // Havent seen it possible to have a root-level array yet
-    // which is allowed in most libs. even though its easy to
-    // pack in an object structure by oneself
     const Data = struct { id: u32, name: ?[]u8, email: ?[]u8 };
     const json_data =
         \\{"root": [{ "id": 1, "name": "John Doe", "email": null},
@@ -79,4 +76,19 @@ test "json arrays" {
     defer parsed.deinit();
     const data = parsed.value;
     try (expect(data.root[2].id == 3));
+}
+
+test "json arrays 2" {
+    const Data = struct { id: u32, name: ?[]u8, email: ?[]u8 };
+    const json_data =
+        \\[{ "id": 1, "name": "John Doe", "email": null},
+        \\{ "id": 2, "name": "Jane Doe", "email": null},
+        \\{ "id": 3, "name": "No Dough", "email": "nodough"}]
+    ;
+    // const DataArray = std.ArrayList(Data);
+    // const parsed = try std.json.parseFromSlice(DataArray, std.testing.allocator, json_data, .{});
+    const parsed = try std.json.parseFromSlice([]const Data, std.testing.allocator, json_data, .{});
+    defer parsed.deinit();
+    const data = parsed.value;
+    try (expect(data[2].id == 3));
 }
